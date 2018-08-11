@@ -1,6 +1,37 @@
 # Padrão Strategy
 
-***Definição:*** O Strategy é um padrão que deve ser utilizado quando uma classe possuir
+***Problema:*** Considere o sistema de um estacionamento que precisa utilizar diversos crité-
+rios para calcular o valor que deve ser cobrado de seus clientes. Para um veículo
+de passeio, o valor deve ser calculado como R$2,00 por hora, porém, caso o tempo
+seja maior do que 12 horas, será cobrada uma taxa diária, e caso o número de dias
+for maior que 15 dias, será cobrada uma mensalidade. Existem também regras di-
+ferentes para caminhões, que dependem do número de eixos e do valor da carga
+carregada, e para veículos para muitos passageiros, como ônibus e vans. O código a
+seguir apresenta um exemplo de como isto estava desenvolvido.
+
+```java
+public class ContaEstacionamento {
+    private Veiculo veiculo;
+    private long inicio, fim;
+    public double valorConta() {
+        long atual = (fim==0) ? System.currentTimeMillis() : fim;
+        long periodo = inicio - atual;
+        if (veiculo instanceof Passeio) {
+            if (periodo < 12 * HORA) {
+                return 2.0 * Math.ceil(periodo / HORA);
+            } else if (periodo > 12 * HORA && periodo < 15 * DIA) {
+                return 26.0 * Math.ceil(periodo / DIA);
+            } else {
+                return 300.0 * Math.ceil(periodo / MES);
+            }
+        } else if (veiculo instanceof Carga) {
+            // outras regras para veículos de carga
+        }
+}
+```
+
+
+***Definição do Strategy:*** O Strategy é um padrão que deve ser utilizado quando uma classe possuir
 diversos algoritmos que possam ser utilizados de forma intercambiável. ***A solução
 proposta pelo padrão consiste em delegar a execução do algoritmo para uma instância que compõe a classe principal.
 Dessa forma, quando a funcionalidade for invocada, no momento de execução do algoritmo, será invocado um 
@@ -52,6 +83,24 @@ public class CalculoDiaria implements CalculoValor {
     }
 }
 ```
+
+### Consequências da utilização do padrão:
+
+- No caso do Strategy , a principal consequência positiva é
+justamente o fato de o algoritmo poder ser alterado sem a modificação da classe. A
+partir dessa estrutura, novas implementações dele podem ser criadas e introduzidas
+posteriormente.
+- Outro ponto positivo do padrão está no fato da lógica condicional na classe prin-
+cipal ser reduzida. Como a escolha do algoritmo está na implementação do objeto
+que está compondo a classe, isso elimina a necessidade de ter condicionais para sele-
+cionar a lógica a ser executada. Outra consequência positiva está no fato de a imple-
+mentação poder ser trocada em tempo de execução, fazendo que o comportamento
+da classe possa ser trocado dinamicamente.
+- Um ponto negativo no caso do Strategy , é que acontece um aumento da complexidade na criação do objeto,
+pois a instância da dependência precisa ser criada e configurada. Caso o atributo
+seja nulo, a classe pode apresentar um comportamento inesperado. Outro problema
+dessa solução está no aumento do número de classes: há uma para cada algoritmo,
+criando uma maior dificuldade em seu gerenciamento.
 
 
 ### O que é composição?
