@@ -1,11 +1,11 @@
 # Padrão Strategy
 
-***Problema:*** Considere o sistema de um estacionamento que precisa utilizar diversos crité-
-rios para calcular o valor que deve ser cobrado de seus clientes. Para um veículo
+***Problema:*** Considere o sistema de um estacionamento que precisa utilizar diversos critérios 
+para calcular o valor que deve ser cobrado de seus clientes. Para um veículo
 de passeio, o valor deve ser calculado como R$2,00 por hora, porém, caso o tempo
 seja maior do que 12 horas, será cobrada uma taxa diária, e caso o número de dias
-for maior que 15 dias, será cobrada uma mensalidade. Existem também regras di-
-ferentes para caminhões, que dependem do número de eixos e do valor da carga
+for maior que 15 dias, será cobrada uma mensalidade. Existem também regras diferentes
+para caminhões, que dependem do número de eixos e do valor da carga
 carregada, e para veículos para muitos passageiros, como ônibus e vans. O código a
 seguir apresenta um exemplo de como isto estava desenvolvido.
 
@@ -36,6 +36,8 @@ diversos algoritmos que possam ser utilizados de forma intercambiável. ***A sol
 proposta pelo padrão consiste em delegar a execução do algoritmo para uma instância que compõe a classe principal.
 Dessa forma, quando a funcionalidade for invocada, no momento de execução do algoritmo, será invocado um 
 método da instância que a compõe.*** 
+
+***Estrutura Básica do Strategy:***
 
 ![Strategy-Basic](../IMAGES/strategy2.png)
 
@@ -90,15 +92,14 @@ public class CalculoDiaria implements CalculoValor {
 justamente o fato de o algoritmo poder ser alterado sem a modificação da classe. A
 partir dessa estrutura, novas implementações dele podem ser criadas e introduzidas
 posteriormente.
-- Outro ponto positivo do padrão está no fato da lógica condicional na classe prin-
-cipal ser reduzida. Como a escolha do algoritmo está na implementação do objeto
-que está compondo a classe, isso elimina a necessidade de ter condicionais para sele-
-cionar a lógica a ser executada. Outra consequência positiva está no fato de a imple-
-mentação poder ser trocada em tempo de execução, fazendo que o comportamento
-da classe possa ser trocado dinamicamente.
+- Outro ponto positivo do padrão está no fato da lógica condicional na classe principal
+ser reduzida. Como a escolha do algoritmo está na implementação do objeto
+que está compondo a classe, isso elimina a necessidade de ter condicionais para selecionar
+a lógica a ser executada. Outra consequência positiva está no fato de a implementação
+poder ser trocada em tempo de execução, fazendo que o comportamento da classe possa ser trocado dinamicamente.
 - Um ponto negativo no caso do Strategy , é que acontece um aumento da complexidade na criação do objeto,
-pois a instância da dependência precisa ser criada e configurada. Caso o atributo
-seja nulo, a classe pode apresentar um comportamento inesperado. Outro problema
+pois a instância da dependência precisa ser criada e configurada. Caso o atributo seja nulo, a classe pode
+apresentar um comportamento inesperado. Outro problema
 dessa solução está no aumento do número de classes: há uma para cada algoritmo,
 criando uma maior dificuldade em seu gerenciamento.
 
