@@ -1,6 +1,6 @@
 # Padrão Strategy
 
-***Definição:***O Strategy é um padrão que deve ser utilizado quando uma classe possuir
+***Definição:*** O Strategy é um padrão que deve ser utilizado quando uma classe possuir
 diversos algoritmos que possam ser utilizados de forma intercambiável. ***A solução
 proposta pelo padrão consiste em delegar a execução do algoritmo para uma instância que compõe a classe principal.
 Dessa forma, quando a funcionalidade for invocada, no momento de execução do algoritmo, será invocado um 
