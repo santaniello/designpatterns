@@ -26,6 +26,8 @@ mentados pela subclasse. Neles ela deve inserir a lógica a ser executada para t
 requisição recebida. Nesse caso, esses métodos possuem uma implementação default
 vazia e precisam ser implementados somente se necessário.
 
+Abaixo, segue um exemplo de implementação de HookMethods:
+
 ```java
 public abstract class Configuration {
 
@@ -55,5 +57,16 @@ public class ConfigurationHlg extends Configuration {
         System.out.println("Implementando config de HLG");
     }
 } 
+
+```
+
+```java
+
+public class TestHookMethods {
+    public static void main(String[] args) {
+        Configuration confPrd = new ConfigurationPrd();
+        confPrd.configure();
+    }
+}
 
 ```
