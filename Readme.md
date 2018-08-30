@@ -17,3 +17,12 @@ sua abstração representa uma nave, então você está representando um
 conceito e deve utilizar uma classe abstrata. Por outro lado, se sua abs-
 tração representa algo que se move, então o que está sendo abstraído é
 um comportamento e a melhor solução é usar uma interface.
+
+***A importância do Reuso da Herança***
+
+O potencial do reuso através de herança pode estar sim no reúso de código da superclasse, 
+porém não é com a subclasse chamando métodos da superclasse, mas com a superclasse chamando 
+código da subclasse. Quando um método da superclasse chama um método que pode ou deve ser 
+implementado na subclasse, isso permite que um mesmo algoritmo possa ser reutilizado com pas-
+sos alterados. Essa flexibilidade aumenta o potencial de reutilização pois permite a
+sua adaptação para necessidades mais específicas.
