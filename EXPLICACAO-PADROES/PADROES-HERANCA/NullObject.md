@@ -86,4 +86,8 @@ public class TestCarrinho {
 }
 ```
 
+O padrão NullObject exemplifica bem o Principio de Substituição de Liskov, que defende que se 
+uma classe é um subtipo de outra, então os objetos dessa classe podem ser substituidos pelos objetos 
+do subtipo sem que seja necessário alterar propriedades do programa. 
+
 
