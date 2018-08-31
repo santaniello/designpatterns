@@ -107,6 +107,23 @@ public class GeradorXMLCompactado extends GeradorArquivo {
 
 ```
 
+```java
+
+public class TestTemplateMethod {
+    public static void main(String[] args) {
+        GeradorArquivo gerador = new GeradorXMLCompactado();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("teste", "teste");
+        try {
+            gerador.gerarArquivo("teste",map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
 ### Consequências do Uso do Template Method
 
 O uso da herança nesse padrão também traz algumas limitações. A primeira é que a herança
