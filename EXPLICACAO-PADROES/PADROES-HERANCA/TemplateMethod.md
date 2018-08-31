@@ -19,6 +19,93 @@ algoritmo.
 
 ![Template-Methods](../../IMAGES/templatemethod.png)
 
+***Exemplo de TemplateMethod em Java***
+
+```java
+
+/* Classe abstrata que implementa o padrão TemplateMethod*/
+
+public abstract class GeradorArquivo {
+    // Método Template
+    public final void gerarArquivo(String nome, Map<String, Object> propriedades) throws IOException {
+        String conteudo = gerarConteudo(propriedades);
+        byte[] bytes = conteudo.getBytes();
+        bytes = processar(bytes);
+        FileOutputStream fileout = new FileOutputStream(nome);
+        fileout.write(bytes);
+        fileout.close();
+    }
+
+    /*
+    * Nesse caso, a implementação do método opcional pelas subclasses...
+    * */
+    protected byte[] processar(byte[] bytes) throws IOException {
+        return bytes;
+    }
+
+    /*
+     * Nesse caso, a implementação do método é obrigatória pelas subclasses pois ele é abstrato...
+     * */
+    protected abstract String gerarConteudo(Map<String, Object> propriedades);
+
+}
+
+```
+
+```java
+
+public class GeradorPropriedadesCriptografado extends GeradorArquivo {
+    private int delay;
+
+    public GeradorPropriedadesCriptografado(int delay) {
+        this.delay = delay;
+    }
+
+    protected byte[] processar(byte[] bytes) throws IOException {
+        byte[] newBytes = new byte[bytes.length];
+        for(int i=0;i<bytes.length;i++){
+            newBytes[i]= (byte) ((bytes[i]+delay) % Byte.MAX_VALUE);
+        }
+        return newBytes;
+    }
+
+    protected String gerarConteudo(Map<String, Object> props) {
+        StringBuilder propFileBuilder = new StringBuilder();
+        for(String prop : props.keySet()){
+            propFileBuilder.append(prop+"="+props.get(prop)+"\n");
+        }
+        return propFileBuilder.toString();
+    }
+}
+
+```
+
+```java 
+
+public class GeradorXMLCompactado extends GeradorArquivo {
+    protected byte[] processar(byte[] bytes) throws IOException {
+        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+        ZipOutputStream out = new ZipOutputStream(byteOut);
+        out.putNextEntry(new ZipEntry("internal"));
+        out.write(bytes);
+        out.closeEntry();
+        out.close();
+        return byteOut.toByteArray();
+    }
+
+    protected String gerarConteudo(Map<String, Object> props) {
+        StringBuilder propFileBuilder = new StringBuilder();
+        propFileBuilder.append("<properties>");
+        for(String prop : props.keySet()){
+            propFileBuilder.
+            append("<"+prop+">"+props.get(prop)+"</"+prop+">");
+        }
+        propFileBuilder.append("</properties>");
+        return propFileBuilder.toString();
+    }
+}
+
+```
 
 ### Consequências do Uso do Template Method
 
